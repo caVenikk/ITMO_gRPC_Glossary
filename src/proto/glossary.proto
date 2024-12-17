@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package glossary;
+
+service GlossaryService {
+  rpc GetAllTerms(Empty) returns (GlossaryTermList);
+  rpc GetTermById(TermId) returns (GlossaryTerm);
+  rpc SearchTerms(SearchRequest) returns (GlossaryTermList);
+  rpc CreateTerm(CreateTermRequest) returns (GlossaryTerm);
+  rpc UpdateTerm(UpdateTermRequest) returns (GlossaryTerm);
+  rpc DeleteTerm(TermId) returns (DeleteResponse);
+}
+
+message Empty {}
+
+message TermId {
+  int32 id = 1;
+}
+
+message GlossaryTerm {
+  int32 id = 1;
+  string term = 2;
+  string definition = 3;
+  string created_at = 4;
+  string updated_at = 5;
+}
+
+message GlossaryTermList {
+  repeated GlossaryTerm terms = 1;
+}
+
+message SearchRequest {
+  string query = 1;
+}
+
+message CreateTermRequest {
+  string term = 1;
+  string definition = 2;
+}
+
+message UpdateTermRequest {
+  int32 id = 1;
+  string term = 2;
+  string definition = 3;
+}
+
+message DeleteResponse {
+  bool success = 1;
+  string message = 2;
+} 
